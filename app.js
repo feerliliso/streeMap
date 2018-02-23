@@ -1,7 +1,7 @@
 
   var map;
 
-  // Create a new blank array for all the listing markers.
+
   var markers = [];
 
   function initMap() {
@@ -12,62 +12,100 @@
       mapTypeControl: false
     });
 
-    // These are the real estate listings that will be shown to the user.
-    // Normally we'd have these in a database instead.
+
     var locations = [
-      {title: '张家口', location: {lat: 40.792472, lng: 114.888833}},
-      {title: '保定', location: {lat: 38.869233, lng: 115.484022}},
-      {title: '廊坊', location: {lat: 39.545523, lng: 116.690439}},
-      {title: '天津', location: {lat: 39.348620, lng: 117.364023}},
-      {title: '唐山', location: {lat: 39.647777, lng: 118.187355}},
-      {title: '北京', location: {lat: 39.918785, lng: 116.420414}}
+      {title: '张家口',detail:'<div><a target="_blank" href="https://zh.wikipedia.org/wiki/%E5%BC%A0%E5%AE%B6%E5%8F%A3%E5%B8%82">资料</a></div>'+'<div>中国冬奥会主办城市</div>', location: {lat: 40.792472, lng: 114.888833}},
+      {title: '保定',detail:'<div><a target="_blank" href="https://zh.wikipedia.org/zh-sg/%E4%BF%9D%E5%AE%9A%E5%B8%82">资料</a></div>'+'<div>河北城市</div>', location: {lat: 38.869233, lng: 115.484022}},
+      {title: '廊坊',detail:'<div><a target="_blank" href="https://zh.wikipedia.org/wiki/%E5%BB%8A%E5%9D%8A%E5%B8%82">资料</a></div>'+'<div>河北城市</div>', location: {lat: 39.545523, lng: 116.690439}},
+      {title: '天津',detail:'<div><a target="_blank" href="https://zh.wikipedia.org/wiki/%E5%A4%A9%E6%B4%A5%E5%B8%82">资料</a></div>'+'<div>北方重要港口</div>', location: {lat: 39.348620, lng: 117.364023}},
+      {title: '唐山',detail:'<div><a target="_blank"href="https://zh.wikipedia.org/wiki/%E5%94%90%E5%B1%B1%E5%B8%82">资料</a></div>'+'<div>重工业城市</div>', location: {lat: 39.647777, lng: 118.187355}},
+      {title: '北京',detail:'<div><a target="_blank" href="https://zh.wikipedia.org/zh-sg/%E5%8C%97%E4%BA%AC%E5%B8%82">资料</a></div>'+'<div>中国首都</div>', location: {lat: 39.918785, lng: 116.420414}}
     ];
 
-    var largeInfowindow = new google.maps.InfoWindow();
+    var largeInfowindow = new google.maps.InfoWindow({maxWidth: 200});
 
-    // The following group uses the location array to create an array of markers on initialize.
     for (var i = 0; i < locations.length; i++) {
-      // Get the position from the location array.
       var position = locations[i].location;
       var title = locations[i].title;
-      // Create a marker per location, and put into markers array.
+      var detail = locations[i].detail;
+      document.getElementById('list').innerHTML+='<ul>'+title+'<ul>';
        var marker = new google.maps.Marker({
         position: position,
         title: title,
+        detail:detail,
         animation: google.maps.Animation.DROP,
         id: i
       });
-      // Push the marker to our array of markers.
+
       markers.push(marker);
-      // Create an onclick event to open an infowindow at each marker.
+
       marker.addListener('click', function() {
         populateInfoWindow(this, largeInfowindow);
       });
     }
-    document.getElementById('show-listings').addEventListener('click', showListings);
-    document.getElementById('hide-listings').addEventListener('click', hideListings);
-  }
+    showListings();
+    document.getElementById('zoom-to-area-text').addEventListener('click', function () {
+                        this.value= " ";
+    });
+    document.getElementById('zoom-to-area').addEventListener('click', function () {
+      //zoomToArea()
+      findAdress();
+    });
 
-  // This function populates the infowindow when the marker is clicked. We'll only allow
-  // one infowindow which will open at the marker that is clicked, and populate based
-  // on that markers position.
+  }
+function findAdress() {
+  var address = document.getElementById('zoom-to-area-text').value;
+  document.getElementById('list').innerHTML = '<ul>'+address+'</ul>';
+  hideListings();
+  var marker = new google.maps.Marker({
+   position: position,
+   title: title,
+   detail:detail,
+   animation: google.maps.Animation.DROP,
+   id: i
+ });
+  marker.addListener('click', function() {
+    populateInfoWindow(this, largeInfowindow);
+  });
+}
+/*function zoomToArea() {
+  var geocoder = new google.maps.Geocoder();
+  var address = document.getElementById('zoom-to-area-text').value;
+  if(address == ''){
+    window.alert('请输入地址');
+  }else{
+    geocoder.geocode(
+           { address: address,
+             componentRestrictions: {locality: 'bei jing'}
+           }, function(results, status) {
+             if (status == google.maps.GeocoderStatus.OK) {
+               map.setCenter(results[0].geometry.location);
+               map.setZoom(10);
+        }else{
+          window.alert('您要求的地址我没有找到，请换一个方式在试一下。')
+        }
+      }
+    );
+  }
+}*/
+
   function populateInfoWindow(marker, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
+
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
-      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.setContent('<div>' + marker.title + '</div>'+'<div>' + marker.detail + '</div>');
       infowindow.open(map, marker);
-      // Make sure the marker property is cleared if the infowindow is closed.
+
       infowindow.addListener('closeclick', function() {
         infowindow.marker = null;
       });
     }
   }
 
-  // This function will loop through the markers array and display them all.
+
   function showListings() {
     var bounds = new google.maps.LatLngBounds();
-    // Extend the boundaries of the map for each marker and display the marker
+
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(map);
       bounds.extend(markers[i].position);
@@ -75,7 +113,7 @@
     map.fitBounds(bounds);
   }
 
-  // This function will loop through the listings and hide them all.
+
   function hideListings() {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);

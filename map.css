@@ -21,21 +21,30 @@ h1 {
   margin: 0 0 10px 0;
   text-align: center;
 }
-
-select{
-    font-size: 12px;
-  width: 100%;
+#list {
+  color:  #F7AD0A;
+  font-size: 15px;
+  margin: 0 0 0 0;
+  text-align: left;
 }
 
-#hide-listings,
-#show-listings {
-  width: 48%;
+
+
+#zoom-to-area-text{
+  width:70%;
+}
+
+#zoom-to-area{
+  width: 24%;
 }
 
 #map {
+
   bottom:0px;
   height: 100%;
-  left: 362px;
+  width: 100%;
+  left:362px;
+  right: 0px;
   position: absolute;
   right: 0px;
 }
