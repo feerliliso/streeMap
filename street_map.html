@@ -7,20 +7,11 @@
       <link rel="stylesheet" href="map.css">
   </head>
   <body>
-    <div class="container">
-      <div class="options-box">
-        <h1>Udacity street map</h1>
-      
-        <div>
-          <input id="zoom-to-area-text" type="text" value="请输入你要查找的地址">
-          <input id= "zoom-to-area" type="button" value="查找">
-        </div>
-        <div id="list"></div>
-      </div>
-      <div id="map"></div>
-    </div>
-    <script async defer
-        src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyBrFKeX72rR82mbme3lH27PQhQ4xC_IaDQ&libraries=geometry&v=3&callback=initMap">
-    </script>
+    <input id="pac-input" class="controls" type="text"
+       placeholder="Enter a location">
+
+   <div id="map"></div>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrFKeX72rR82mbme3lH27PQhQ4xC_IaDQ&libraries=places&callback=initMap"
+      async defer></script>
   </body>
 </html>
