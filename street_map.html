@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
+<body>
   <head>
-    <meta charset="utf-8">
-    <title>udacity object street map</title>
-      <script src="app.js"></script>
-      <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="map.css">
+    <script src="app.js" charset="utf-8"></script>
+    <script src="js/lib/ko.js"></script>
+    <script src="kon.js" defer="defer"></script>
   </head>
-  <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-     <div id="map"></div>
+  <div class="container">
+    <div class="options-box">
+      <h1>Find Your New NYC Home</h1>
+      <input type="text" value="请输入你要查询的地址" class="input">
+      <div>The name is <span data-bind="text: personName"></span></div>
 
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrFKeX72rR82mbme3lH27PQhQ4xC_IaDQ&libraries=places&callback=initAutocomplete"
-            async defer></script>
-  </body>
+    </div>
+    <div id="map"></div>
+  </div>
+  <script async defer
+      src=
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBrFKeX72rR82mbme3lH27PQhQ4xC_IaDQ&v=3&callback=initMap">
+  </script>
+
+</body>
 </html>
