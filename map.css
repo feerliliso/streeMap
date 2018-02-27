@@ -51,7 +51,16 @@ h1 {
 }
 
 .list{
+  height: 100%;
   width: 96%;
   border-radius: 3px;
-  background: #D0D7D9;
+  background: #62C8A5;
+}
+li{
+  background: #BEF7E4;
+  text-align: center;
+  margin: 0 0 10px 0;
+  box-shadow: #fff;
+  border-radius: 5px;
+  width: 80%;
 }
