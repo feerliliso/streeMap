@@ -1,7 +1,7 @@
-var map;
-var marker;
-var markers= [];
-var locations = [{
+var map;//创建一个变量
+var marker;//创建一个变量存储marker
+var markers= [];//创建一个数组用来存放marker
+var locations = [{//默认地点数组
         kind: '博物馆',
         title: '首都博物馆',
         location: {
@@ -41,7 +41,7 @@ var locations = [{
             lng: 116.419020
         }
     },];
-var AllLocations = [{
+var AllLocations = [{//另一个数组
         kind: '博物馆',
         title: '首都博物馆',
         location: {
@@ -87,23 +87,22 @@ function initMap() {//初始化地图
     center:{lat: 39.917694, lng:116.398504},//给出中心坐标
     zoom:13//给出精度
   });
-  renderMarker();
-  document.getElementById("button").addEventListener("click", function(){
-      document.getElementById("demo").innerHTML = "Hello World";
-  });
+  renderMarker();//地图渲染
 }
 
-function select() {
+function select(places) {//筛选地点并生成需要现实的地点数组
+  hideListings();
    locations = [];
   for(var i=0;i<AllLocations.length;i++){
-    if(AllLocations[i].kind == "旅店"){
+    if(AllLocations[i].kind == places){
       locations.push(AllLocations[i]);
     }
   }
+  renderMarker();
+  //showListings();
 }
-function renderMarker(){
-
-
+function renderMarker(){//渲染地图函数
+      //select();
       var largeinfowindow = new google.maps.InfoWindow();//设置信息窗口
       var bounds = new google.maps.LatLngBounds();
       for(var i = 0;i< locations.length;i++){
@@ -129,7 +128,7 @@ function renderMarker(){
 
 }
 
-function populateInfoWindow(marker,infowindow) {
+function populateInfoWindow(marker,infowindow) {//信息窗口函数
   if(infowindow.marker !=marker){
     infowindow.marker = marker;
     infowindow.setContent('<div>'+marker.title+'</div>');
@@ -140,4 +139,19 @@ function populateInfoWindow(marker,infowindow) {
     this.marker.setAnimation(google.maps.Animation.DROP);
     });
   }
+}
+
+function hideListings() {//隐藏marker函数
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+}
+
+function showListings() {//显示marker函数
+  var bounds = new google.maps.LatLngBounds();
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+    bounds.extend(markers[i].position);
+  }
+  map.fitBounds(bounds);
 }
