@@ -22,10 +22,7 @@ h1 {
   text-align: center;
 }
 
-#hide-listings,
-#show-listings {
-  width: 48%;
-}
+
 
 #map {
   bottom:0px;
@@ -46,9 +43,6 @@ h1 {
   width: 340px;
 }
 
-.input{
-  width: 96%;
-}
 
 .list{
   height: 100%;
@@ -63,4 +57,18 @@ li{
   box-shadow: #fff;
   border-radius: 5px;
   width: 80%;
+}
+input{
+  width: 70%;
+  text-align: center;
+  box-shadow: #fff;
+  padding: 0px 0px 10px 10px;
+    position: relative;
+}
+button{
+  width:15%;
+  position: relative;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+
 }

@@ -1,33 +1,34 @@
-function MyViewModel() {
-    var self = this;
-    self.places = ko.observableArray(['旅店', '饭馆', '超市','公园','博物馆']);
+var places;
+var ViewModle = function() {
+  var self = this;
+  self.places_name = ko.observable("");
+  self.places = ko.observableArray([
+    { name: "饭店", shouldShow: ko.observable(true) },
+    { name: "旅店", shouldShow: ko.observable(true) },
+    { name: "博物馆", shouldShow: ko.observable(true) }
+  ]);
+  self.getPlaces = function () {
+    places = self.places_name ();
+    return places;
+  }
 
-    // The current item will be passed as the first parameter, so we know which place was hovered over
+  self.Chick_places = function() {
+    if(self.places_name()===""){
+    alert("请输入你的地址");
+  for (var i = 0; i < self.places().length; i++){
+    self.places()[i].shouldShow(true);
+  }
+}else{
+    for (var i = 0; i < self.places().length; i++) {
+      if (self.places_name() === self.places()[i].name) {
+        self.places()[i].shouldShow(true);
+      } else {
 
-    self.logMouseClick = function(places) {
-      if (places == '旅店') {
-
-        hideListings();
-        showListings();
-
-        }
-      if (places == '饭馆') {
-
+        self.places()[i].shouldShow(false);
       }
-      if (places == '超市') {
-
-      }
-      if (places == '公园') {
-
-      }
-      if (places == '博物馆') {
-
-        hideListings();
-        showListings();
-      }
-
     }
-    
 }
 
-ko.applyBindings(new MyViewModel());
+  }
+};
+ko.applyBindings(new ViewModle()); // 注意这个要 new

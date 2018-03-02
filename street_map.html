@@ -11,13 +11,16 @@
   <div class="container">
     <div class="options-box">
       <h1>Udacity Object street map</h1>
-      <div class="list">
+    <div class="list">
     <h1>分类</h1>
-    <ul data-bind="foreach:places">
-    <li data-bind="text: $data, event: { click: $parent.logMouseClick }"></li>
+    <div>
+    <<input type="text" data-bind="value:places_name">
+    <button data-bind="click: Chick_places">筛选</button>
   </div>
-
-    </div>
+    <ul data-bind="foreach:places">
+    <li data-bind="text:name,visible:shouldShow"></li>
+  </div>
+</div>
     <div id="map"></div>
   </div>
   <script async defer

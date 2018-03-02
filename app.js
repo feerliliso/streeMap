@@ -1,7 +1,46 @@
 var map;
 var marker;
 var markers= [];
-var locations=[];
+var locations = [{
+        kind: '博物馆',
+        title: '首都博物馆',
+        location: {
+            lat: 39.906572,
+            lng: 116.342069
+        }
+    },
+    {
+        kind: '博物馆',
+        title: '中国妇女儿童博物馆',
+        location: {
+            lat: 39.908468,
+            lng: 116.419818
+        }
+    },
+    {
+        kind: '博物馆',
+        title: '孔庙',
+        location: {
+            lat: 39.947125,
+            lng: 116.414596
+        }
+    },
+    {
+        kind: '旅店',
+        title: '金融街洲际酒店',
+        location: {
+            lat: 39.919208,
+            lng: 116.357521
+        }
+    },
+    {
+        kind: '旅店',
+        title: '北京丽晶酒店',
+        location: {
+            lat: 39.916344,
+            lng: 116.419020
+        }
+    },];
 var AllLocations = [{
         kind: '博物馆',
         title: '首都博物馆',
@@ -49,9 +88,13 @@ function initMap() {//初始化地图
     zoom:13//给出精度
   });
   renderMarker();
+  document.getElementById("button").addEventListener("click", function(){
+      document.getElementById("demo").innerHTML = "Hello World";
+  });
 }
 
 function select() {
+   locations = [];
   for(var i=0;i<AllLocations.length;i++){
     if(AllLocations[i].kind == "旅店"){
       locations.push(AllLocations[i]);
@@ -59,7 +102,8 @@ function select() {
   }
 }
 function renderMarker(){
-       select();
+
+
       var largeinfowindow = new google.maps.InfoWindow();//设置信息窗口
       var bounds = new google.maps.LatLngBounds();
       for(var i = 0;i< locations.length;i++){
