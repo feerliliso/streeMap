@@ -17,10 +17,10 @@
                 <h1>分类</h1>
                 <div>
                     <input type="text" data-bind="value:places_name">
-                    <button data-bind="click: Chick_places">筛选</button>
+                    <button id="submit-btn" data-bind="click: Chick_places">筛选</button>
                 </div>
                 <ul data-bind="foreach:places">
-                    <li data-bind="text:name,visible:view"></li>
+                    <li data-bind="text:name,visible:view "></li>
             </div>
         </div>
         <div id="map"></div>

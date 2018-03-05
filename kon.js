@@ -21,11 +21,11 @@ var ViewModle = function() {
     self.Chick_places = function() { //点击所引起的一系列动作
 
         if(self.places_name() === "") { //如果是空值显示如下信息
-            alert("请输入你的地址");
             //select();//筛选数组
             for(var i = 0; i < self.places().length; i++) {
                 self.places()[i].view(true);
-            }
+                }
+                alert("请输入你的地址");
         } else {
             select(self.places_name());
             for(var i = 0; i < self.places().length; i++) {

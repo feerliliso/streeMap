@@ -1,7 +1,9 @@
 var map; //创建一个变量
 var marker; //创建一个变量存储marker
 var markers = []; //创建一个数组用来存放marker
+var htmlContent = '';
 var locations = [{ //默认地点数组
+
         kind: '博物馆',
         title: '首都博物馆',
         location: {
@@ -143,18 +145,27 @@ function renderMarker() { //渲染地图函数
         bounds.extend(marker.position);
         marker.addListener('click', function() {
             populateInfoWindow(this, largeinfowindow);
+console.log(position);
+            fetch( `http://api.map.baidu.com/panorama/v2?ak=beFuxVorB63lhdLrdU5QzbgjNaKieLVl&width=512&height=256&location=116.313393,40.04778&fov=180`)
+            .then(response=>response.json())
+            .then(add)
+            .catch(err=>requestError());
         });
 
-    }
-    map.fitBounds(bounds);
 
-}
+        }
+     map.fitBounds(bounds);
+    }
+
+
+
 
 function populateInfoWindow(marker, infowindow) { //信息窗口函数
     if(infowindow.marker != marker) {
         infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.setContent('<div>' + marker.title + htmlContent+'</div>');
         infowindow.open(map, marker);
+        console.log(marker.title);
         marker.setAnimation(google.maps.Animation.BOUNCE);
         infowindow.addListener('closeclick', function() {
             infowindow.setMarker = null;
@@ -176,4 +187,18 @@ function showListings() { //显示marker函数
         bounds.extend(markers[i].position);
     }
     map.fitBounds(bounds);
+}
+
+function add(data) {
+
+  if( data.response){
+    htmlContent = '<div>data.response</div>';
+}else{
+htmlContent = '<div>没有发现全景图片</div>';
+    }
+  }
+
+function requestError() {
+htmlContent = '<div>异步调试失败</div>';
+
 }

@@ -45,9 +45,8 @@ h1 {
 
 
 .list{
+  padding: 1em 0;
   height: 100%;
-  width: 96%;
-  border-radius: 3px;
   background: #62C8A5;
 }
 li{
@@ -59,16 +58,24 @@ li{
   width: 80%;
 }
 input{
-  width: 70%;
-  text-align: center;
-  box-shadow: #fff;
-  padding: 0px 0px 10px 10px;
-    position: relative;
+  margin-left: 3.5em;
+  text-align: left;
+  border: none;
+  border-radius: 4px;
+  flex-grow: 1;
+  padding: 1em 2em;
 }
-button{
-  width:15%;
-  position: relative;
-    padding: 10px 10px 10px 10px;
-    border-radius: 5px;
+#submit-btn{
+  background-color: #15c26b;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 1em 1em;
+  text-transform: uppercase;
 
+}
+
+#submit-btn:hover {
+    background-color: #12a159;
 }
